@@ -1,0 +1,17 @@
+public function GetTransactionYesterdayCountTable($operateur)
+{
+	$today = date('Y-m-d');
+	list($Year, $month, $day) = explode("-", $today);
+	$sql = "SELECT * FROM daytransaction WHERE Day=DATE_SUB('$Year-$month-$day', INTERVAL 1 DAY)";
+	$recup = $this->bdd->query($sql);
+	$donne = $recup->fetch();
+	if ($donne) {
+		return $donne[$operateur];
+	}else{
+		return 0;
+	}
+}
+
+
+//OPERATOR CONTROLLER
+$countTransactionYesterday = $transaction->GetTransactionYesterdayCountTable("NombreTelma");
